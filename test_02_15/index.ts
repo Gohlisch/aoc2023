@@ -3,7 +3,7 @@ import {calcPaper, calcRibbon} from "./logic.ts";
 
 const input = readFile("input.txt");
 
-const result1 =input.split("\n")
+const result1 = input.split("\n")
     .filter(a => !!a)
     .map(calcPaper)
     .reduce((a,b) => a+b);
