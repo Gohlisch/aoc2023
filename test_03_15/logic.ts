@@ -35,7 +35,7 @@ function pairAsString(pair: [number, number]): string {
     return `${pair[0]},${pair[1]}`;
 }
 
-function moveInDirection( position: [number, number], direction: Direction): void {
+function moveInDirection(position: [number, number], direction: Direction): void {
     switch (direction) {
         case ">": position[0] += 1; break;
         case "<": position[0] -= 1; break;
