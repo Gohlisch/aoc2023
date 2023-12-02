@@ -1,5 +1,5 @@
 import {assertEquals, assert, assertFalse} from "https://deno.land/std@0.207.0/assert/mod.ts";
-import {isGamePossible, sumOfPossibleGameIds} from "./logic.ts";
+import {isGamePossible, sumOfPossibleGameIds, sumOfPowerOfRequiredCubes} from "./logic.ts";
 
 const testInput = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n" +
     "Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue\n" +
@@ -18,3 +18,12 @@ Deno.test("few cubes possible", () => {
 Deno.test("to many red cubes impossible", () => {
     assertFalse(isGamePossible("8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red"));
 })
+
+Deno.test("power of required cubes", () => {
+    assertEquals(sumOfPowerOfRequiredCubes(["Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n"]), 48);
+});
+
+
+Deno.test("power of required cubes", () => {
+    assertEquals(sumOfPowerOfRequiredCubes(testInput.split("\n")), 2286);
+});
