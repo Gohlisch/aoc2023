@@ -27,13 +27,3 @@ Deno.test("replaces word, split in two", () => {
 
     assertEquals(createNumberFromFirstAndLastDigitOrWrittenNumber(line), 33);
 });
-
-
-/**
- * falsch
- * 55447
- * 54753
- * 54732
- * 54706
- * 54305
- */
