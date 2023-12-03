@@ -1,5 +1,5 @@
 import {assertEquals, assert, assertFalse} from "https://deno.land/std@0.207.0/assert/mod.ts";
-import { getNumbersAdjacentToSymbols } from "./logic.ts";
+import {getGearScore, getNumbersAdjacentToSymbols} from "./logic.ts";
 
 const testInput = "467..114..\n" +
     "...*......\n" +
@@ -19,4 +19,10 @@ Deno.test("It works", () => {
 
     const sum = numbersAdjacent.reduce((acc, curr) => acc + curr.weight, 0);
     assertEquals(sum, 4361);
+});
+
+Deno.test("It works with gears", () => {
+    const numbersAdjacent = getNumbersAdjacentToSymbols(testInput);
+
+    assertEquals(getGearScore(numbersAdjacent), 467835);
 });
