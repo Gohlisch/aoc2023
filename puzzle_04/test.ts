@@ -1,5 +1,5 @@
 import {assertEquals, assert, assertFalse} from "https://deno.land/std@0.207.0/assert/mod.ts";
-import {calcCardValue, extractNumbersFromCard} from "./logic.ts";
+import {calcCardValue, calcCardWon, parseCard} from "./logic.ts";
 
 const testInput = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53\n" +
     "Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19\n" +
@@ -11,9 +11,17 @@ const testInput = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53\n" +
 Deno.test("It works", () => {
     const result = testInput.split("\n")
         .filter(a => !!a)
-        .map(extractNumbersFromCard)
+        .map(parseCard)
         .map(card => calcCardValue(card.numbers, card.winningNumbers))
         .reduce((a, b) => a + b, 0);
 
     assertEquals(result, 13);
+});
+
+Deno.test("It works", () => {
+    const cards = testInput.split("\n")
+        .filter(a => !!a)
+        .map(parseCard);
+
+    assertEquals(calcCardWon(cards), 30);
 });

@@ -1,14 +1,16 @@
 import {readFile} from "../utils.ts";
-import {calcCardValue, extractNumbersFromCard} from "./logic.ts";
+import {calcCardValue, calcCardWon, parseCard} from "./logic.ts";
 
 const input =  readFile("input.txt");
 
-const score = input.split("\n")
+const cards = input.split("\n")
     .filter(a => !!a)
-    .map(extractNumbersFromCard)
+    .map(parseCard);
+const score = cards
     .map(card => calcCardValue(card.numbers, card.winningNumbers))
     .reduce((a, b) => a + b, 0);
+const cardsWon = calcCardWon(cards);
 
 
 console.log(`Part 1: ${score}`);
-console.log(`Part 2: ${null}`);
+console.log(`Part 2: ${cardsWon}`);
