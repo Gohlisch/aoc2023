@@ -1,5 +1,5 @@
 import {assertEquals, assert, assertFalse} from "https://deno.land/std@0.207.0/assert/mod.ts";
-import {mapSeeds, parseMaps} from "./logic.ts";
+import {mapSeeds, parseMaps, reinterpretSeedsAsRanges} from "./logic.ts";
 
 const testInput = "seeds: 79 14 55 13\n" +
     "\n" +
@@ -40,6 +40,12 @@ Deno.test("parses", () => {
 
     assertEquals(parsed.initialSeeds.length, 4);
     assertEquals(parsed.maps.length, 7);
+    assertEquals(parsed.maps[0].length, 2);
+    assertEquals(parsed.maps[1].length, 3);
+    assertEquals(parsed.maps[2].length, 4);
+    assertEquals(parsed.maps[3].length, 2);
+    assertEquals(parsed.maps[4].length, 3);
+    assertEquals(parsed.maps[5].length, 2);
 });
 
 Deno.test("maps", () => {
@@ -48,4 +54,15 @@ Deno.test("maps", () => {
     const mappedSeeds = mapSeeds(wrapper);
 
     assertEquals(mappedSeeds.sort((a,b) => a-b)[0], 35);
+});
+
+
+Deno.test("maps many more numbers", () => {
+    const wrapper = parseMaps(testInput);
+
+    wrapper.initialSeeds = reinterpretSeedsAsRanges(wrapper.initialSeeds);
+
+    const mappedSeeds = mapSeeds(wrapper);
+
+    assertEquals(mappedSeeds.sort((a,b) => a-b)[0], 46);
 });

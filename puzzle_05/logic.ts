@@ -68,6 +68,33 @@ export function mapSeeds(wrapper: MapWrapper): number[] {
     });
 }
 
+export function reinterpretSeedsAsRanges(seeds: number[]): [number, number][] {
+    const startLengthPairs: [number, number][] = [];
+    for(let i = 0; i+1 <seeds.length; i += 2) {
+        startLengthPairs.push([seeds[i], seeds[i+1]]);
+    }
+    startLengthPairs.sort((a, b) => a[0]-b[0]);
+
+    const mergedRanges: [number, number][] = [];
+    let currentRange = startLengthPairs[0];
+    for (let i = 1; i < startLengthPairs.length; i++) {
+        const nextRange = startLengthPairs[i];
+        if(currentRange[0]+currentRange[1] > nextRange[0]) { // overlap!
+            currentRange[1] += nextRange[0]+nextRange[1]-currentRange[0]-currentRange[1];
+        } else { // no overlap :(
+            mergedRanges.push(currentRange);
+            currentRange = nextRange;
+        }
+    }
+    mergedRanges.push(currentRange);
+
+    return mergedRanges;
+}
+
+export function range(start: number, length: number): number[] {
+    return [...new Array(length).keys()].map(n => n+start);
+}
+
 function mapNumber(number: number, map: Range[]) {
     const range = map.find(range => isInRange(number, range));
     return range ? range.step+number : number;
