@@ -11,6 +11,13 @@ export function amountOfWaysToWin(races: Race[]): number[] {
         .map(arr => arr.length);
 }
 
+export function toOneRace(races: Race[]): Race {
+    return {
+        time_ms: +races.flatMap(r => r.time_ms).map(o => o.toString()).reduce((a,b)=>a+b),
+        distance_mm: +races.flatMap(r => r.distance_mm).map(o => o.toString()).reduce((a,b)=>a+b),
+    };
+}
+
 export function parse(input: string): Race[] {
     const timesMatch = timeRegex.exec(input);
     if(!timesMatch || !timesMatch.groups) throw new Error(`No times found: ${input}`);
@@ -38,7 +45,7 @@ export function parse(input: string): Race[] {
         }));
 }
 
-function waysToWin(race: Race): number[] {
+export function waysToWin(race: Race): number[] {
     const chargingTimesToWin = [];
     for (let chargingTime = 1; chargingTime < race.time_ms; chargingTime++) {
         const remainingTime = race.time_ms - chargingTime;
